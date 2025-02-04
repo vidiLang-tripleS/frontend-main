@@ -26,6 +26,8 @@ flutter:
     - assets/icons/cap_icon.svg
     - assets/icons/user_icon.svg
     - assets/icons/logo.png
+    - assets/icons/google_logo.png
+    - assets/icons/header_icon.svg
 
   fonts:   
     - family: Pretendard
