@@ -34,6 +34,7 @@ class QuizResultPage extends StatelessWidget {
                 fontFamily: 'Pretendard',
               ),
             ),
+            SizedBox(height: 20),
             Text(
               '결과 확인',
               style: TextStyle(
@@ -42,26 +43,26 @@ class QuizResultPage extends StatelessWidget {
                 fontFamily: 'Pretendard',
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 30),
 
             // 원형 진행률 바
             Stack(
               alignment: Alignment.center,
               children: [
                 SizedBox(
-                  width: 180,
-                  height: 180,
+                  width: 250,
+                  height: 250,
                   child: CircularProgressIndicator(
                     value: scorePercentage / 100,
                     backgroundColor: Colors.white,
                     color: Color(0xFFEB5757),
-                    strokeWidth: 12,
+                    strokeWidth: 18,
                   ),
                 ),
                 Text(
                   '${scorePercentage.toInt()}%',
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 40,
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
                   ),
@@ -69,7 +70,7 @@ class QuizResultPage extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 40),
+            SizedBox(height: 50),
 
             // 언어별 정답률 표시
             Container(
@@ -115,7 +116,7 @@ class QuizResultPage extends StatelessWidget {
                         Text(
                           category,
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: progressColor,
                           ),
@@ -123,7 +124,7 @@ class QuizResultPage extends StatelessWidget {
                         Spacer(),
                         Text(
                           '${categoryScores[category]}/${categoryTotal[category]}',
-                          style: TextStyle(fontSize: 16),
+                          style: TextStyle(fontSize: 18),
                         ),
                         SizedBox(width: 10),
                         Expanded(
@@ -141,51 +142,71 @@ class QuizResultPage extends StatelessWidget {
               ),
             ),
 
-            SizedBox(height: 40),
+            SizedBox(height: 30),
             // 버튼들
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: () {
-                  // 틀린 문제 보기 기능 추가 예정
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.grey.shade400,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // 틀린 문제 보기 기능 추가 예정
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                      ),
+                      child: Text(
+                        '틀린 문제 모아보기',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: Text(
-                  '틀린 문제 모아보기',
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                ),
+                ],
               ),
             ),
 
-            SizedBox(height: 10),
-
-            SizedBox(
-              width: 300,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    '/',
-                    (route) => false,
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFEB5757),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          '/',
+                          (route) => false,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFFEB5757),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                      ),
+                      child: Text(
+                        '홈으로 돌아가기',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                ),
-                child: Text(
-                  '홈으로 돌아가기',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
-                ),
+                ],
               ),
             ),
           ],
