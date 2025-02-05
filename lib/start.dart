@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
+import 'header.dart';
 import 'navbar.dart';
 
 class MyApp extends StatelessWidget {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
           children: [
             Background(),
             Navbar(),
-            HeaderLogo(),
+            Header(),
             Center(
               child: TestText(),
             ),
