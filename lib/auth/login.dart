@@ -55,10 +55,28 @@ class Login extends StatelessWidget {
                   EmailField(),
                   SizedBox(height: screenHeight * 0.02),
                   PasswordField(),
-                  SizedBox(height: screenHeight * 0.01),
+                  SizedBox(height: screenHeight * 0.001),
                   ForgotPasswordText(),
                 ],
               ),
+            ),
+          ),
+          Positioned(
+            bottom: screenHeight * 0.167,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: LoginButton(),
+            ),
+          ),
+          Positioned(
+            bottom: screenHeight * 0.116,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.center,
+              child: LoginDivider(),
             ),
           ),
           Positioned(
@@ -67,17 +85,23 @@ class Login extends StatelessWidget {
             right: 0,
             child: Align(
               alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AccountSignUpText(),
-                  SizedBox(height: screenHeight * 0.009),
-                  LoginButton(),
-                  SizedBox(height: screenHeight * 0.015),
-                  GoogleLoginButton(),
-                ],
+              child: Container(
+                width: screenWidth * 0.6,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GoogleLoginButton(),
+                    KakaoLoginButton(),
+                  ],
+                ),
               ),
             ),
+          ),
+          Positioned(
+            bottom: screenHeight * 0.235,
+            left: 0,
+            right: 0,
+            child: AccountSignUpText(),
           ),
         ],
       ),
@@ -136,20 +160,15 @@ class GoogleLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 325,
-      height: 53,
+      width: 43,
+      height: 43,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.168),
             offset: Offset(0, 2),
-            blurRadius: 3,
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(0.084),
-            offset: Offset(0, 0),
             blurRadius: 3,
           ),
         ],
@@ -160,28 +179,47 @@ class GoogleLoginButton extends StatelessWidget {
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: CircleBorder(),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/icons/google_logo.png',
-              width: 15,
-              height: 15,
-            ),
-            SizedBox(width: 10),
-            Text(
-              "Google로 계속하기",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.font,
-              ),
-            ),
-          ],
+        child: Image.asset(
+          'assets/icons/google_logo.png',
+          width: 20,
+          height: 20,
+        ),
+      ),
+    );
+  }
+}
+
+class KakaoLoginButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 43,
+      height: 43,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.168),
+            offset: Offset(0, 2),
+            blurRadius: 3,
+          ),
+        ],
+      ),
+      child: TextButton(
+        onPressed: () {
+          // 카카오 로그인 버튼 클릭 시 동작할 로직 추가
+        },
+        style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          shape: CircleBorder(),
+        ),
+        child: Image.asset(
+          'assets/icons/google_logo.svg',
+          width: 20,
+          height: 20,
         ),
       ),
     );
@@ -350,6 +388,44 @@ class AccountSignUpText extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LoginDivider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Divider(
+            thickness: 0.9,
+            color: Colors.black,
+            indent: 30,
+            endIndent: 10,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          child: Text(
+            "or",
+            style: TextStyle(
+              fontFamily: 'Pretendard',
+              fontWeight: FontWeight.w700,
+              fontSize: 15,
+              color: Color(0xFF33363F),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Divider(
+            thickness: 0.9,
+            color: Colors.black,
+            indent: 10,
+            endIndent: 30,
+          ),
+        ),
+      ],
     );
   }
 }

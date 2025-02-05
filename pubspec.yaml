@@ -28,6 +28,8 @@ flutter:
     - assets/icons/logo.png
     - assets/icons/google_logo.png
     - assets/icons/header_icon.svg
+ 
+
 
   fonts:   
     - family: Pretendard
