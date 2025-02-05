@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
-import 'quiz/quiz_list.dart';
+import 'quiz/quiz_list_page.dart';
+import 'start.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -31,7 +32,10 @@ class Navbar extends StatelessWidget {
           bottom: 32.86,
           child: GestureDetector(
             onTap: () {
-              // 홈 아이콘 클릭 이벤트 처리
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MyApp()),
+              );
             },
             child: Container(
               child: SvgPicture.asset(
@@ -83,7 +87,7 @@ class Navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => QuizList()),
+                MaterialPageRoute(builder: (context) => QuizListPage()),
               );
             },
             child: SvgPicture.asset(
