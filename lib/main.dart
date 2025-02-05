@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vidilang/start.dart';
 import 'theme.dart';
 import 'navbar.dart';
 
@@ -7,6 +8,8 @@ void main() {
 }
 
 class VidiLang extends StatelessWidget {
+  const VidiLang({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

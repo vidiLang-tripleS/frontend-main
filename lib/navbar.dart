@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
+//import 'quiz/quiz_list.dart';
+import 'quiz/quiz_list_progress.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -80,7 +82,10 @@ class Navbar extends StatelessWidget {
           bottom: 32.86,
           child: GestureDetector(
             onTap: () {
-              // 학사모 아이콘 클릭 이벤트 처리
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QuizListProgress()),
+              );
             },
             child: SvgPicture.asset(
               'assets/icons/cap_icon.svg',
