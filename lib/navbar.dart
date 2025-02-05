@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
-//import 'quiz/quiz_list.dart';
-import 'quiz/quiz_list_progress.dart';
+import 'quiz/quiz_list.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -84,7 +83,7 @@ class Navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => QuizListProgress()),
+                MaterialPageRoute(builder: (context) => QuizList()),
               );
             },
             child: SvgPicture.asset(
