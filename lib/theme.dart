@@ -46,6 +46,7 @@ class LoginHeaderLogo extends StatelessWidget {
       child: SvgPicture.asset(
         'assets/icons/header_icon.svg',
         fit: BoxFit.contain,
+        colorFilter: null,
         color: null,
       ),
     );
