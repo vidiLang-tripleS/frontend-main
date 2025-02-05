@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'quiz_result.dart';
 
-class QuizListProgress extends StatefulWidget {
+class QuizQuestionProgress extends StatefulWidget {
   @override
-  _QuizListProgressState createState() => _QuizListProgressState();
+  _QuizQuestionProgressState createState() => _QuizQuestionProgressState();
 }
 
-class _QuizListProgressState extends State<QuizListProgress> {
+class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
   //예시 데이터
   final List<Map<String, dynamic>> questions = [
     {

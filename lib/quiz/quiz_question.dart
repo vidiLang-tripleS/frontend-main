@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class QuizList extends StatefulWidget {
+class QuizQuestion extends StatefulWidget {
   @override
-  _QuizListState createState() => _QuizListState();
+  _QuizQuestionState createState() => _QuizQuestionState();
 }
 
-class _QuizListState extends State<QuizList> {
+class _QuizQuestionState extends State<QuizQuestion> {
   // 보기 옵션들
   final List<String> options = ['work', 'worked', 'working', 'will work'];
   final String correctAnswer = 'working'; // 정답

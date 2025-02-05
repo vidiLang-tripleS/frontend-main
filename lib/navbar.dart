@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
 import 'quiz/quiz_list_page.dart';
 import 'start.dart';
+import 'folder_list_page.dart';
+import 'quiz/quiz_question_progress.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -53,7 +55,10 @@ class Navbar extends StatelessWidget {
           bottom: 32.86,
           child: GestureDetector(
             onTap: () {
-              // 폴더 아이콘 클릭 이벤트 처리
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FolderListPage()),
+              );
             },
             child: SvgPicture.asset(
               'assets/icons/folder_icon.svg',
@@ -69,7 +74,11 @@ class Navbar extends StatelessWidget {
           bottom: 18.33,
           child: GestureDetector(
             onTap: () {
-              // 더하기 버튼 클릭 이벤트 처리
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => QuizQuestionProgress()),
+              );
+              // 문제 보러가는 창으로 해뒀는데 수정해야함
             },
             child: SvgPicture.asset(
               'assets/icons/add_icon.svg',

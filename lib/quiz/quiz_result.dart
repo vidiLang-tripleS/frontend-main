@@ -142,18 +142,6 @@ class QuizResultPage extends StatelessWidget {
             ),
 
             SizedBox(height: 40),
-
-            // 선택한 답안 표시
-            ListView.builder(
-              itemCount: selectedAnswers.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title:
-                      Text('Question ${index + 1}: ${selectedAnswers[index]}'),
-                );
-              },
-            ),
-
             // 버튼들
             SizedBox(
               width: 300,
