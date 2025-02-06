@@ -3,7 +3,7 @@ import 'theme.dart';
 import 'navbar.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(VidiLang());
 }
 
 class VidiLang extends StatelessWidget {
