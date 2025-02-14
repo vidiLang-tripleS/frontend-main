@@ -154,9 +154,8 @@ class _CreateFolderBottomSheet extends StatefulWidget {
 }
 
 class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
-  // 선택된 언어 태그
+  // 선택된 언어 태그와 색상
   String? _selectedLanguage;
-  // 선택된 색상
   Color? _selectedColor;
 
   final List<String> _languages = [
@@ -185,13 +184,15 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       expand: false,
+      initialChildSize: 0.57,
+      minChildSize: 0.5,
+      maxChildSize: 0.95,
       builder: (context, scrollController) {
         return Container(
           padding: EdgeInsets.only(
-            left: 16,
-            right: 16,
+            left: 20,
+            right: 20,
             top: 16,
-            // 키보드가 올라올 때 하단 영역이 가려지지 않도록
             bottom: MediaQuery.of(context).viewInsets.bottom + 16,
           ),
           decoration: const BoxDecoration(
@@ -207,6 +208,7 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // 상단 제목
+                const SizedBox(height: 20),
                 Center(
                   child: Text(
                     '폴더 생성',
@@ -216,10 +218,11 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 25),
 
                 // 폴더명 입력
                 TextField(
+                  autofocus: true,
                   decoration: InputDecoration(
                     labelText: '폴더명',
                     hintText: '폴더명을 입력하세요',
@@ -228,23 +231,16 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 16),
-
-                // 이미 존재하는 폴더 경고 예시 (필요 시 조건부로)
-                // Text(
-                //   '이미 존재하는 폴더입니다.',
-                //   style: TextStyle(fontSize: 12, color: Colors.red),
-                // ),
-                // const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
                 // 언어 태그 라벨
                 const Text(
                   '언어 태그',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
 
-                // 언어 태그(ChoiceChip 등으로 단일 선택)
+                // 단일 선택 언어 태그 (FilterChip)
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -252,24 +248,24 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
                       .map((lang) => _buildLanguageChip(lang))
                       .toList(),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
                 // 폴더 색상 라벨
                 const Text(
                   '폴더 색상',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 20),
 
-                // 색상 선택 (단일 선택)
+                // 단일 선택 폴더 색상
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:
                       _colors.map((color) => _buildColorCircle(color)).toList(),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 25),
 
-                // 하단 버튼
+                // 우측 정렬 버튼들
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -310,7 +306,7 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
     );
   }
 
-  // 단일 선택 언어 태그 (ChoiceChip 활용)
+  // 단일 선택 언어 태그 (체크 아이콘 없이)
   Widget _buildLanguageChip(String label) {
     final bool isSelected = (label == _selectedLanguage);
     return FilterChip(
@@ -323,7 +319,7 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
       selected: isSelected,
       selectedColor: AppColors.maincolor,
       backgroundColor: Colors.grey.shade200,
-      showCheckmark: false, // 체크 아이콘 비활성화
+      showCheckmark: false,
       onSelected: (selected) {
         setState(() {
           _selectedLanguage = selected ? label : null;
@@ -332,7 +328,7 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
     );
   }
 
-  // 단일 선택 색상 (GestureDetector + 체크 아이콘)
+  // 단일 선택 폴더 색상 (선택 시 체크 아이콘 포함)
   Widget _buildColorCircle(Color color) {
     final bool isSelected = (color == _selectedColor);
     return GestureDetector(
@@ -342,14 +338,13 @@ class _CreateFolderBottomSheetState extends State<_CreateFolderBottomSheet> {
         });
       },
       child: Container(
-        width: 28,
-        height: 28,
+        width: 32,
+        height: 32,
         decoration: BoxDecoration(
           color: color,
           shape: BoxShape.circle,
           border: isSelected ? Border.all(color: Colors.black, width: 2) : null,
         ),
-        // 선택된 경우 안에 체크 아이콘 표시
         child: isSelected
             ? const Icon(Icons.check, color: Colors.white, size: 16)
             : null,
