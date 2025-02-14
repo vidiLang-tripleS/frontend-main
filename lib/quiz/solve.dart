@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'result.dart';
 import '../theme.dart';
+import '../quiz/list_page.dart';
 
 class QuizSolve extends StatefulWidget {
   @override
@@ -187,9 +188,14 @@ class _QuizSolveState extends State<QuizSolve> {
                     fontFamily: 'Pretendard',
                   ),
                 ),
-                Icon(
-                  Icons.close,
-                  color: AppColors.black,
+                IconButton(
+                  icon: Icon(Icons.close),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => QuizListPage()),
+                    );
+                  },
                 ),
               ],
             ),
