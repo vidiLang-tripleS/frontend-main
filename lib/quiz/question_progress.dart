@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'quiz_result.dart';
+import 'result.dart';
 
 class QuizQuestionProgress extends StatefulWidget {
   @override

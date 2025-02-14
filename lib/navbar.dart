@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
-import 'quiz/quiz_list_page.dart';
+import 'quiz/list_page.dart';
 import 'start.dart';
 import 'folder_list_page.dart';
-import 'quiz/quiz_question_progress.dart';
+import 'quiz/question_progress.dart';
 
 class Navbar extends StatelessWidget {
   @override
