@@ -4,7 +4,7 @@ import 'theme.dart';
 import 'quiz/list_page.dart';
 import 'start.dart';
 import 'folder_list_page.dart';
-import 'quiz/question_progress.dart';
+import 'quiz/solve.dart';
 
 class Navbar extends StatelessWidget {
   @override
@@ -76,7 +76,7 @@ class Navbar extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => QuizQuestionProgress()),
+                MaterialPageRoute(builder: (context) => QuizSolve()),
               );
               // 문제 보러가는 창으로 해뒀는데 수정해야함
             },

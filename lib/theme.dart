@@ -7,6 +7,7 @@ class AppColors {
   static const Color maincolor = Color(0xFFEB5757); // 메인컬러
   static const Color textcolor = Color(0xFF000000); // 텍스트컬러
   static const Color lightgray = Color(0xFFC0C0C0); // 서브컬러
+  static const Color black = Color(0xFF000000); // 검정
 }
 
 class Background extends StatelessWidget {

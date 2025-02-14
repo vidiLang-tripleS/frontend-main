@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'solve.dart'; // 퀴즈 풀이 페이지 import
 
 class QuizResultPage extends StatelessWidget {
   final int correctAnswers;
@@ -17,170 +18,162 @@ class QuizResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double scorePercentage = (correctAnswers / totalQuestions) * 100;
-
     return Scaffold(
-      backgroundColor: Color(0xFFF7E6E6),
-      appBar: null,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Quiz',
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Pretendard',
-              ),
-            ),
-            SizedBox(height: 20),
-            Text(
-              '결과 확인',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Pretendard',
-              ),
-            ),
-            SizedBox(height: 30),
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Spacer(), // 상단 여백 확보
 
-            // 원형 진행률 바
-            Stack(
-              alignment: Alignment.center,
+          // 퀴즈 결과 타이틀
+          Text(
+            '퀴즈 결과',
+            style: TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20),
+
+          // 점수 결과 컨테이너
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.symmetric(horizontal: 80),
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Color(0xFFEB5757),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
               children: [
-                SizedBox(
-                  width: 250,
-                  height: 250,
-                  child: CircularProgressIndicator(
-                    value: scorePercentage / 100,
-                    backgroundColor: Colors.white,
-                    color: Color(0xFFEB5757),
-                    strokeWidth: 18,
+                Text(
+                  '점수',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                Text(
-                  '${scorePercentage.toInt()}%',
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                SizedBox(height: 20),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '$correctAnswers / $totalQuestions',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ),
               ],
             ),
+          ),
 
-            SizedBox(height: 50),
+          SizedBox(height: 40),
 
-            // 언어별 정답률 표시
-            Container(
-              padding: EdgeInsets.all(16),
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: categoryScores.keys.map((category) {
-                  double categoryProgress =
-                      categoryScores[category]! / categoryTotal[category]!;
-                  Color progressColor;
-
-                  switch (category) {
-                    case '영어':
-                      progressColor = Colors.red;
-                      break;
-                    case '스페인어':
-                      progressColor = Colors.orange;
-                      break;
-                    case '일본어':
-                      progressColor = Colors.yellow;
-                      break;
-                    default:
-                      progressColor = Colors.grey;
-                  }
-
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      children: [
-                        Text(
-                          category,
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: progressColor,
-                          ),
-                        ),
-                        Spacer(),
-                        Text(
-                          '${categoryScores[category]}/${categoryTotal[category]}',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: LinearProgressIndicator(
-                            value: categoryProgress,
-                            backgroundColor: Colors.grey.shade300,
-                            color: progressColor,
-                            minHeight: 6,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-
-            SizedBox(height: 30),
-            // 버튼들
-
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 20.0),
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
+          // 전체 문제 다시 풀기 & 틀린 문제 다시 풀기 버튼
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(
                 children: [
-                  Expanded(
-                    child: ElevatedButton(
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: Color(0xFFBEBEBE)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.refresh),
                       onPressed: () {
-                        Navigator.pushNamedAndRemoveUntil(
+                        // 🚀 전체 문제 다시 풀기 기능 추가
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                        Navigator.pushReplacement(
                           context,
-                          '/',
-                          (route) => false,
+                          MaterialPageRoute(
+                            builder: (context) => QuizSolve(), // 새 퀴즈 시작
+                          ),
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFEB5757),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 15),
-                      ),
-                      child: Text(
-                        '홈으로 돌아가기',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: const Color.fromRGBO(255, 255, 255, 1),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                     ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '전체문제\n다시풀기',
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
+              SizedBox(width: 20),
+              Column(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: Color(0xFFBEBEBE)),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        // TODO: 틀린 문제 다시 풀기 (나중에 구현)
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    '틀린문제\n다시풀기',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ],
+          ),
+
+          SizedBox(height: 80),
+
+          // 목록으로 돌아가기 버튼 (항상 하단에 고정)
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/',
+                    (route) => false,
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFEB5757),
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  '목록으로 돌아가기',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 100),
+        ],
       ),
     );
   }

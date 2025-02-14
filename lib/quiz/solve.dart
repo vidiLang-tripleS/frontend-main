@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'result.dart';
+import '../theme.dart';
 
-class QuizQuestionProgress extends StatefulWidget {
+class QuizSolve extends StatefulWidget {
   @override
-  _QuizQuestionProgressState createState() => _QuizQuestionProgressState();
+  _QuizSolveState createState() => _QuizSolveState();
 }
 
-class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
+class _QuizSolveState extends State<QuizSolve> {
   //예시 데이터
   final List<Map<String, dynamic>> questions = [
     {
@@ -91,7 +92,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
   //  정답/오답에 따라 버튼 색상 변경
   Color getButtonColor(String option) {
     if (!isAnswerChecked) {
-      return selectedAnswer == option ? Colors.grey.shade400 : Colors.white;
+      return selectedAnswer == option ? Color(0xFFE5E5E5) : Colors.transparent;
     } else {
       if (option == questions[currentQuestionIndex]['answer']) {
         return Colors.green;
@@ -107,9 +108,9 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
     if (!isAnswerChecked) return Colors.black;
 
     if (option == questions[currentQuestionIndex]['answer']) {
-      return Colors.white;
+      return Colors.black; //일단 검정 추후 변경 가능
     } else if (option == selectedAnswer) {
-      return Colors.white;
+      return Colors.black; //일단 검정 추후 변경 가능
     }
     return Colors.black;
   }
@@ -127,7 +128,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
           ),
           child: Icon(
             Icons.circle_outlined,
-            color: Colors.green,
+            color: Color(0xFFA0C97D),
             size: 25,
           ),
         );
@@ -141,7 +142,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
           ),
           child: Icon(
             Icons.close,
-            color: Colors.red,
+            color: AppColors.maincolor,
             size: 25,
           ),
         );
@@ -156,7 +157,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
         ),
         child: Icon(
           Icons.check,
-          color: Colors.grey,
+          color: AppColors.black,
           size: 25,
         ),
       );
@@ -167,66 +168,74 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF7E6E6),
+      backgroundColor: AppColors.background,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 60),
-            Center(
-              child: Text(
-                'Quiz',
-                style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Pretendard',
-                ),
-              ),
-            ),
-            SizedBox(height: 20),
+            SizedBox(height: 65),
+            //퀴즈 리스트 타이틀
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${currentQuestionIndex + 1}/${questions.length}',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: Colors.grey.shade300,
-                      color: Colors.redAccent,
-                      minHeight: 8,
-                    ),
+                  '퀴즈리스트',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Pretendard',
                   ),
+                ),
+                Icon(
+                  Icons.close,
+                  color: AppColors.black,
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
+            //퀴즈 프로그래스 바
             Container(
-              padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${currentQuestionIndex + 1}/${questions.length}',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.grey.shade300,
+                        color: Colors.redAccent,
+                        borderRadius: BorderRadius.circular(10),
+                        minHeight: 8,
+                      ),
+                    ),
                   ),
                 ],
               ),
+            ),
+            SizedBox(height: 40),
+            //퀴즈 문제 텍스트
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Color(0xFFE5E5E5),
+                borderRadius: BorderRadius.circular(8),
+              ),
               child: Text(
-                'Choose the correct verb form for this sentence:\n\n${questions[currentQuestionIndex]['question']}',
+                '${questions[currentQuestionIndex]['question']}',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.left,
               ),
             ),
             SizedBox(height: 60),
+            //퀴즈 문제 답안 버튼
             Column(
               children: questions[currentQuestionIndex]['options']
                   .map<Widget>((option) {
@@ -239,6 +248,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
                     decoration: BoxDecoration(
                       color: getButtonColor(option),
                       borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: AppColors.lightgray, width: 1),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -247,7 +257,6 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
                           option,
                           style: TextStyle(
                             fontSize: 22,
-                            fontWeight: FontWeight.w500,
                             color: getTextColor(option),
                           ),
                         ),
@@ -259,6 +268,8 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
               }).toList(),
             ),
             SizedBox(height: 20),
+            Spacer(),
+            //퀴즈 다음 확인 버튼
             Container(
               width: double.infinity,
               height: 60,
@@ -286,6 +297,7 @@ class _QuizQuestionProgressState extends State<QuizQuestionProgress> {
                 ),
               ),
             ),
+            SizedBox(height: 100),
           ],
         ),
       ),
