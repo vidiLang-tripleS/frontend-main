@@ -1,128 +1,104 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'theme.dart';
-import 'quiz/list_page.dart';
-import 'start.dart';
-import 'folder_list_page.dart';
-import 'quiz/solve.dart';
+import 'quiz/list_page.dart'; // ✅ QuizListPage를 불러오기
+import './folder_list_page.dart'; // ✅ FolderListPage를 불러오기
+import 'main.dart'; // ✅ HomePage를 불러오기
 
 class Navbar extends StatelessWidget {
+  final int currentIndex;
+
+  Navbar({required this.currentIndex});
+
   @override
   Widget build(BuildContext context) {
     return Stack(
+      clipBehavior: Clip.none,
       children: [
-        // 네비게이션 바
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            width: 430,
-            height: 88,
-            decoration: BoxDecoration(
-              color: AppColors.primary,
-              border: Border.all(color: Color(0xFFEFF1F3)),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30.0),
-                topRight: Radius.circular(30.0),
-              ),
+        // 네비게이션 바 배경
+        Container(
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(top: BorderSide(color: Color(0xFFEFF1F3))),
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
           ),
         ),
 
-        // 홈 아이콘
+        // 네비게이션 아이콘들
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.0798,
-          bottom: 32.86,
+          bottom: 30,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildNavItem(Icons.home_outlined, 0, context, MainPage()), // 홈
+              _buildNavItem(Icons.folder_open_outlined, 1, context,
+                  FolderListPage()), // 폴더
+              SizedBox(width: 60), // 중앙 버튼 공간 확보
+              _buildNavItem(
+                  Icons.lightbulb_outlined, 2, context, QuizListPage()), // 퀴즈
+              _buildNavItem(
+                  Icons.person_outline, 3, context, null), // 유저 (클릭 이벤트 없음)
+            ],
+          ),
+        ),
+
+        // 중앙 + 버튼
+        Positioned(
+          bottom: 30,
+          left: MediaQuery.of(context).size.width / 2 - 30,
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MyApp()),
+                MaterialPageRoute(
+                    builder: (context) => QuizListPage()), // 퀴즈 페이지로 이동
               );
             },
             child: Container(
-              child: SvgPicture.asset(
-                'assets/icons/home_icon.svg',
-                width: 30,
-                height: 30,
+              width: 60,
+              height: 60,
+              decoration: BoxDecoration(
+                color: AppColors.maincolor,
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
               ),
-            ),
-          ),
-        ),
-
-        // 폴더 아이콘
-        Positioned(
-          left: MediaQuery.of(context).size.width * 0.2471,
-          bottom: 32.86,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FolderListPage()),
-              );
-            },
-            child: SvgPicture.asset(
-              'assets/icons/folder_icon.svg',
-              width: 30,
-              height: 30,
-            ),
-          ),
-        ),
-
-        // 더하기 버튼
-        Positioned(
-          left: MediaQuery.of(context).size.width * 0.5 - 46 / 2,
-          bottom: 18.33,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuizSolve()),
-              );
-              // 문제 보러가는 창으로 해뒀는데 수정해야함
-            },
-            child: SvgPicture.asset(
-              'assets/icons/add_icon.svg',
-              width: 48,
-              height: 47,
-            ),
-          ),
-        ),
-
-        // 학사모 아이콘
-        Positioned(
-          left: MediaQuery.of(context).size.width * 0.6616,
-          bottom: 32.86,
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => QuizListPage()),
-              );
-            },
-            child: SvgPicture.asset(
-              'assets/icons/cap_icon.svg',
-              width: 30,
-              height: 30,
-            ),
-          ),
-        ),
-
-        // 유저 아이콘
-        Positioned(
-          left: MediaQuery.of(context).size.width * 0.8289,
-          bottom: 32.86,
-          child: GestureDetector(
-            onTap: () {
-              // 유저 아이콘 클릭 이벤트 처리
-            },
-            child: SvgPicture.asset(
-              'assets/icons/user_icon.svg',
-              width: 30,
-              height: 30,
+              child: Icon(Icons.add, size: 40, color: Colors.white),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildNavItem(
+      IconData icon, int index, BuildContext context, Widget? page) {
+    return IconButton(
+      icon: Icon(
+        icon,
+        size: 34,
+        color: currentIndex == index
+            ? AppColors.maincolor
+            : Colors.black54, // 선택된 아이콘 색상 변경
+      ),
+      onPressed: page != null
+          ? () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => page), // 화면 이동
+              );
+            }
+          : null,
     );
   }
 }

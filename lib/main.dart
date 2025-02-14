@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/start.dart';
 import 'theme.dart';
 import 'header.dart';
 import 'navbar.dart';
@@ -7,11 +6,11 @@ import 'package:intl/date_symbol_data_local.dart'; // 날짜 데이터 초기화
 
 void main() {
   initializeDateFormatting(); // 날짜 데이터 초기화
-  runApp(MyApp());
+  runApp(MainPage());
 }
 
-class VidiLang extends StatelessWidget {
-  const VidiLang({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +20,13 @@ class VidiLang extends StatelessWidget {
         body: Stack(
           children: [
             Background(),
-            Navbar(),
             Header(),
             Center(
               child: TestText(),
             ),
           ],
         ),
+        bottomNavigationBar: Navbar(currentIndex: 0),
       ),
     );
   }

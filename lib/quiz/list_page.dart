@@ -95,7 +95,7 @@ class _QuizListPageState extends State<QuizListPage> {
               ),
             ),
           ),
-          Navbar(),
+          Navbar(currentIndex: 2),
         ],
       ),
     );

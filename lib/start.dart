@@ -12,12 +12,14 @@ class MyApp extends StatelessWidget {
         body: Stack(
           children: [
             Background(),
-            Navbar(),
             Header(),
             Center(
               child: TestText(),
             ),
           ],
+        ),
+        bottomNavigationBar: Navbar(
+          currentIndex: 0,
         ),
       ),
     );
