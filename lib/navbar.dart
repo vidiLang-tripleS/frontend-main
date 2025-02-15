@@ -3,6 +3,7 @@ import 'theme.dart';
 import 'quiz/list_page.dart'; // ✅ QuizListPage를 불러오기
 import './folder_list_page.dart'; // ✅ FolderListPage를 불러오기
 import 'main.dart'; // ✅ HomePage를 불러오기
+import 'add_juice.dart'; // ✅ HomePage를 불러오기
 
 class Navbar extends StatelessWidget {
   final int currentIndex;
@@ -56,7 +57,7 @@ class Navbar extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => QuizListPage()), // 퀴즈 페이지로 이동
+                    builder: (context) => AddJuice()), // 퀴즈 페이지로 이동
               );
             },
             child: Container(
