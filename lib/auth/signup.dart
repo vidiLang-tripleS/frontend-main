@@ -44,7 +44,7 @@ class Signup extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(bottom: 69),
-              child: signupButton(),
+              child: SignupButton(),
             ),
           ),
         ],
@@ -140,11 +140,7 @@ class _EmailFieldState extends State<EmailField> {
           margin: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(
-                color: _hasInputEmail
-                    ? (_isValidEmail ? Color(0xFFA0C97D) : Color(0xFFEB5757))
-                    : Color(0xFFBEBEBE),
-                width: 0.5),
+            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
@@ -165,7 +161,7 @@ class _EmailFieldState extends State<EmailField> {
         SizedBox(height: 5),
         Container(
           height: 20,
-          padding: EdgeInsets.only(left: 34),
+          padding: EdgeInsets.only(left: 30),
           child: AnimatedOpacity(
             duration: Duration(milliseconds: 300),
             opacity: _hasInputEmail ? 1.0 : 0.0,
@@ -174,7 +170,7 @@ class _EmailFieldState extends State<EmailField> {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
-                color: _isValidEmail ? Color(0xFFA0C97D) : Color(0xFFEB5757),
+                color: _isValidEmail ? Colors.green : Color(0xFFEB5757),
               ),
             ),
           ),
@@ -191,10 +187,6 @@ class PasswordField extends StatefulWidget {
 
 class _PasswordFieldState extends State<PasswordField> {
   final TextEditingController _passwordController = TextEditingController();
-  bool _hasUpperCase = false;
-  bool _hasLowerCase = false;
-  bool _hasNumber = false;
-  bool _hasSpecialChar = false;
   bool _hasMinLength = false;
   bool _hasInputPassword = false;
   bool _isPasswordVisible = false;
@@ -202,22 +194,12 @@ class _PasswordFieldState extends State<PasswordField> {
   void _validatePassword(String password) {
     setState(() {
       _hasInputPassword = password.isNotEmpty;
-      _hasUpperCase = RegExp(r'[A-Z]').hasMatch(password);
-      _hasLowerCase = RegExp(r'[a-z]').hasMatch(password);
-      _hasNumber = RegExp(r'[0-9]').hasMatch(password);
-      _hasSpecialChar = RegExp(r'[@$!%*?&]').hasMatch(password);
       _hasMinLength = password.length >= 8;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    bool _allValid = _hasUpperCase &&
-        _hasLowerCase &&
-        _hasNumber &&
-        _hasSpecialChar &&
-        _hasMinLength;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -238,14 +220,7 @@ class _PasswordFieldState extends State<PasswordField> {
           margin: EdgeInsets.symmetric(horizontal: 20),
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(
-              color: !_hasInputPassword
-                  ? Color(0xFFBEBEBE)
-                  : _allValid
-                      ? Color(0xFFA0C97D)
-                      : Color(0xFFEB5757),
-              width: 0.5,
-            ),
+            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
@@ -281,45 +256,13 @@ class _PasswordFieldState extends State<PasswordField> {
           duration: Duration(milliseconds: 300),
           opacity: _hasInputPassword ? 1.0 : 0.0,
           child: Padding(
-            padding: EdgeInsets.only(left: 34),
-            child: RichText(
-              text: TextSpan(
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-                children: [
-                  TextSpan(
-                    text: "대문자 ",
-                    style: TextStyle(
-                        color:
-                            _hasUpperCase ? Colors.green : Color(0xFFEB5757)),
-                  ),
-                  TextSpan(text: ", "),
-                  TextSpan(
-                    text: "소문자 ",
-                    style: TextStyle(
-                        color:
-                            _hasLowerCase ? Colors.green : Color(0xFFEB5757)),
-                  ),
-                  TextSpan(text: ", "),
-                  TextSpan(
-                    text: "숫자 ",
-                    style: TextStyle(
-                        color: _hasNumber ? Colors.green : Color(0xFFEB5757)),
-                  ),
-                  TextSpan(text: ", "),
-                  TextSpan(
-                    text: "특수문자 ",
-                    style: TextStyle(
-                        color:
-                            _hasSpecialChar ? Colors.green : Color(0xFFEB5757)),
-                  ),
-                  TextSpan(text: ", "),
-                  TextSpan(
-                    text: "8자 이상 ",
-                    style: TextStyle(
-                        color:
-                            _hasMinLength ? Colors.green : Color(0xFFEB5757)),
-                  ),
-                ],
+            padding: EdgeInsets.only(left: 30),
+            child: Text(
+              _hasMinLength ? "8자 이상 입력되었습니다." : "8자 이상 입력해주세요.",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: _hasMinLength ? Colors.green : Color(0xFFEB5757),
               ),
             ),
           ),
@@ -329,7 +272,7 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 
-class signupButton extends StatelessWidget {
+class SignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -353,7 +296,10 @@ class signupButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          // 회원가입 버튼 클릭 시 동작할 로직 추가
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Login()),
+          );
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,

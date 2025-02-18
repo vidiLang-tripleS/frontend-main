@@ -1,9 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:vidilang/start.dart';
 import 'package:vidilang/auth/signup.dart';
 import 'package:vidilang/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  bool _isEmailValid = true;
+  bool _isLoginValid = true;
+  bool _isPasswordEmpty = true;
+
+  void _validateEmail(String email) {
+    final emailRegex =
+        RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    setState(() {
+      _isEmailValid = emailRegex.hasMatch(email) || email.isEmpty;
+    });
+  }
+
+  void _validatePassword(String password) {
+    setState(() {
+      _isPasswordEmpty = password.isEmpty;
+      if (_isPasswordEmpty) {
+        _isLoginValid = true;
+      }
+    });
+  }
+
+  // ✅ 로그인 로직 (임시)
+  void _login() {
+    String correctEmail = "test@example.com";
+    String correctPassword = "password123";
+
+    setState(() {
+      _isLoginValid = _emailController.text == correctEmail &&
+          _passwordController.text == correctPassword;
+    });
+
+    if (_isLoginValid) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyApp()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,28 +78,28 @@ class Login extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EmailField(),
-                    SizedBox(height: 10),
-                    PasswordField(),
+                    EmailField(
+                      controller: _emailController,
+                      isValid: _isEmailValid,
+                      onChanged: _validateEmail,
+                    ),
                     SizedBox(height: 5),
-                    ForgotPasswordText(),
-                  ],
-                ),
-              ),
-              SizedBox(height: 15),
-              Align(
-                alignment: Alignment.center,
-                child: AccountSignUpText(),
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LoginButton(),
+                    PasswordField(
+                      controller: _passwordController,
+                      isLoginValid: _isLoginValid,
+                      onChanged: _validatePassword,
+                    ),
+                    SizedBox(height: 5),
+                    if (_isPasswordEmpty || _isLoginValid) ForgotPasswordText(),
+                    Spacer(),
+                    AccountSignUpText(),
+                    SizedBox(height: 10),
+                    LoginButton(onPressed: _login),
                     SizedBox(height: 15),
                     LoginDivider(),
                     SizedBox(height: 15),
                     SocialLoginButtons(),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -64,6 +112,16 @@ class Login extends StatelessWidget {
 }
 
 class EmailField extends StatelessWidget {
+  final TextEditingController controller;
+  final bool isValid;
+  final Function(String) onChanged;
+
+  EmailField({
+    required this.controller,
+    required this.isValid,
+    required this.onChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -83,13 +141,21 @@ class EmailField extends StatelessWidget {
           height: 48,
           decoration: BoxDecoration(
             color: Colors.white,
-            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
+            border: Border.all(
+              color: Color(0xFFBEBEBE),
+              width: 0.5,
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
+            controller: controller,
+            onChanged: onChanged,
+            maxLines: 1,
+            textAlignVertical: TextAlignVertical.center,
+            style: TextStyle(height: 1.0),
             decoration: InputDecoration(
               contentPadding:
-                  EdgeInsets.symmetric(vertical: 17, horizontal: 18),
+                  EdgeInsets.symmetric(vertical: 14, horizontal: 18),
               border: InputBorder.none,
               hintText: "이메일을 입력해주세요",
               hintStyle: TextStyle(
@@ -100,12 +166,33 @@ class EmailField extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 4),
+        SizedBox(
+          height: 16, // ✅ 에러 메시지가 없어도 높이 유지
+          child: Visibility(
+            visible: !isValid,
+            child: Text(
+              "잘못된 형식의 이메일입니다.",
+              style: TextStyle(fontSize: 12, color: Color(0xFFEB5757)),
+            ),
+          ),
+        ),
       ],
     );
   }
 }
 
 class PasswordField extends StatelessWidget {
+  final TextEditingController controller;
+  final bool isLoginValid;
+  final Function(String) onChanged;
+
+  PasswordField({
+    required this.controller,
+    required this.isLoginValid,
+    required this.onChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -129,7 +216,9 @@ class PasswordField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: TextField(
+            controller: controller,
             obscureText: true,
+            onChanged: onChanged,
             decoration: InputDecoration(
               contentPadding:
                   EdgeInsets.symmetric(vertical: 17, horizontal: 18),
@@ -143,12 +232,24 @@ class PasswordField extends StatelessWidget {
             ),
           ),
         ),
+        if (!isLoginValid && controller.text.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(left: 5, top: 4),
+            child: Text(
+              "이메일이나 비밀번호를 다시 확인하세요.",
+              style: TextStyle(fontSize: 12, color: Color(0xFFEB5757)),
+            ),
+          ),
       ],
     );
   }
 }
 
 class LoginButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  LoginButton({required this.onPressed});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,7 +260,7 @@ class LoginButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           "로그인",
           style: TextStyle(
@@ -178,38 +279,35 @@ class AccountSignUpText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.only(top: 200),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "계정이 없으신가요? ",
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "계정이 없으신가요? ",
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF4F4F4F),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Signup()),
+              );
+            },
+            child: Text(
+              "회원가입",
               style: TextStyle(
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
                 color: Color(0xFF4F4F4F),
+                decoration: TextDecoration.underline,
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Signup()),
-                );
-              },
-              child: Text(
-                "회원가입",
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xFF4F4F4F),
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
