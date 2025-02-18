@@ -23,12 +23,23 @@ flutter:
     - assets/icons/home_icon.svg
     - assets/icons/folder_icon.svg
     - assets/icons/add_icon.svg
-    - assets/icons/cap_icon.svg
+    - assets/icons/light_icon.svg
     - assets/icons/user_icon.svg
-    - assets/icons/logo.png
-    - assets/icons/google_logo.png
-    - assets/icons/header_icon.svg
- 
+    - assets/icons/squiz_logo.svg
+    - assets/icons/option_icon.svg
+    - assets/icons/arrow_icon.svg
+    - assets/icons/google_icon.svg
+    - assets/icons/kakao_icon.svg
+    - assets/icons/eye_icon.svg
+    - assets/icons/image.png
+    - assets/icons/video.png
+    - assets/icons/search_icon.svg
+    - assets/icons/thumbnail.png
+    - assets/icons/check_icon.svg
+    - assets/icons/x_icon.svg
+
+
+    
 
 
   fonts:   

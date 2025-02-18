@@ -1,225 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:vidilang/auth/signup.dart';
 import 'package:vidilang/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.background,
-      body: Stack(
-        children: [
-          Positioned(
-            top: screenHeight * 0.08,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                width: screenWidth * 0.85,
-                height: screenHeight * 0.08,
-                child: LoginHeaderLogo(),
-              ),
-            ),
-          ),
-          Positioned(
-            top: screenHeight * 0.15,
-            left: screenWidth * 0.05,
-            right: screenWidth * 0.05,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                '로그인',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.132,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.font,
+      body: Center(
+        child: Container(
+          width: 430,
+          height: 932,
+          padding: EdgeInsets.symmetric(horizontal: 27),
+          child: Column(
+            children: [
+              SizedBox(height: 36),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: 250.67,
+                  height: 188,
+                  child: Logo(),
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-          ),
-          Positioned(
-            top: screenHeight * 0.32,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: screenHeight * 0.045),
-                  EmailField(),
-                  SizedBox(height: screenHeight * 0.02),
-                  PasswordField(),
-                  SizedBox(height: screenHeight * 0.001),
-                  ForgotPasswordText(),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: screenHeight * 0.167,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: LoginButton(),
-            ),
-          ),
-          Positioned(
-            bottom: screenHeight * 0.116,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: LoginDivider(),
-            ),
-          ),
-          Positioned(
-            bottom: screenHeight * 0.05,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: Container(
-                width: screenWidth * 0.6,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              SizedBox(height: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GoogleLoginButton(),
-                    KakaoLoginButton(),
+                    EmailField(),
+                    SizedBox(height: 10),
+                    PasswordField(),
+                    SizedBox(height: 5),
+                    ForgotPasswordText(),
                   ],
                 ),
               ),
-            ),
+              SizedBox(height: 15),
+              Align(
+                alignment: Alignment.center,
+                child: AccountSignUpText(),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LoginButton(),
+                    SizedBox(height: 15),
+                    LoginDivider(),
+                    SizedBox(height: 15),
+                    SocialLoginButtons(),
+                  ],
+                ),
+              ),
+            ],
           ),
-          Positioned(
-            bottom: screenHeight * 0.235,
-            left: 0,
-            right: 0,
-            child: AccountSignUpText(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class LoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 325,
-      height: 53,
-      decoration: BoxDecoration(
-        color: Color(0xFFEB5757),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.168),
-            offset: Offset(0, 2),
-            blurRadius: 3,
-          ),
-          BoxShadow(
-            color: Colors.black.withOpacity(0.084),
-            offset: Offset(0, 0),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: () {
-          // 로그인 버튼 클릭 시 동작할 로직 추가
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            "로그인",
-            style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class GoogleLoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 43,
-      height: 43,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.168),
-            offset: Offset(0, 2),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: () {
-          // 구글 로그인 버튼 클릭 시 동작할 로직 추가
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: CircleBorder(),
-        ),
-        child: Image.asset(
-          'assets/icons/google_logo.png',
-          width: 20,
-          height: 20,
-        ),
-      ),
-    );
-  }
-}
-
-class KakaoLoginButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 43,
-      height: 43,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.168),
-            offset: Offset(0, 2),
-            blurRadius: 3,
-          ),
-        ],
-      ),
-      child: TextButton(
-        onPressed: () {
-          // 카카오 로그인 버튼 클릭 시 동작할 로직 추가
-        },
-        style: TextButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape: CircleBorder(),
-        ),
-        child: Image.asset(
-          'assets/icons/google_logo.svg',
-          width: 20,
-          height: 20,
         ),
       ),
     );
@@ -234,34 +71,32 @@ class EmailField extends StatelessWidget {
       children: [
         Text(
           "이메일",
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: Color(0xFF4F4F4F),
+          ),
         ),
         SizedBox(height: 5),
         Container(
-          width: 325,
-          height: 53,
+          width: double.infinity,
+          height: 48,
           decoration: BoxDecoration(
             color: Colors.white,
+            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 2),
-                blurRadius: 3,
-              ),
-            ],
           ),
           child: TextField(
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 17, horizontal: 18),
+              border: InputBorder.none,
+              hintText: "이메일을 입력해주세요",
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0x4F4F4F).withOpacity(0.5),
               ),
-              hintText: "이메일을 입력 해주세요",
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Color(0x4F4F4F).withOpacity(0.5),
-                  ),
             ),
           ),
         ),
@@ -278,35 +113,33 @@ class PasswordField extends StatelessWidget {
       children: [
         Text(
           "비밀번호",
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+            color: Color(0xFF4F4F4F),
+          ),
         ),
         SizedBox(height: 5),
         Container(
-          width: 325,
-          height: 53,
+          width: double.infinity,
+          height: 48,
           decoration: BoxDecoration(
             color: Colors.white,
+            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 2),
-                blurRadius: 3,
-              ),
-            ],
           ),
           child: TextField(
             obscureText: true,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
+              contentPadding:
+                  EdgeInsets.symmetric(vertical: 17, horizontal: 18),
+              border: InputBorder.none,
+              hintText: "8자리 이상으로 입력해주세요",
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0x4F4F4F).withOpacity(0.5),
               ),
-              hintText: "비밀번호를 입력 해주세요",
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Color(0x4F4F4F).withOpacity(0.5),
-                  ),
             ),
           ),
         ),
@@ -315,36 +148,26 @@ class PasswordField extends StatelessWidget {
   }
 }
 
-class ForgotPasswordText extends StatelessWidget {
+class LoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 57, top: 8),
-      child: Row(
-        children: [
-          Text(
-            "비밀번호를 잊으셨나요? ",
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-              color: Colors.black.withOpacity(0.5),
-            ),
+    return Container(
+      width: double.infinity,
+      height: 48,
+      decoration: BoxDecoration(
+        color: Color(0xFFEB5757),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          "로그인",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
           ),
-          GestureDetector(
-            onTap: () {
-              // 비밀번호 찾기 페이지로 이동하는 로직 추가
-            },
-            child: Text(
-              "비밀번호 찾기",
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Colors.black.withOpacity(0.7),
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -356,16 +179,16 @@ class AccountSignUpText extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 22),
+        padding: EdgeInsets.only(top: 200),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               "계정이 없으신가요? ",
               style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Colors.black.withOpacity(0.5),
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF4F4F4F),
               ),
             ),
             GestureDetector(
@@ -378,9 +201,9 @@ class AccountSignUpText extends StatelessWidget {
               child: Text(
                 "회원가입",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black.withOpacity(0.7),
+                  color: Color(0xFF4F4F4F),
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -392,40 +215,92 @@ class AccountSignUpText extends StatelessWidget {
   }
 }
 
+class SocialLoginButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset(
+            'assets/icons/google_icon.svg',
+            width: 45,
+            height: 45,
+          ),
+        ),
+        SizedBox(width: 20),
+        IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset(
+            'assets/icons/kakao_icon.svg',
+            width: 45,
+            height: 45,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class LoginDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: Divider(
-            thickness: 0.9,
-            color: Colors.black,
-            indent: 30,
-            endIndent: 10,
-          ),
+          child: Divider(thickness: 1, color: Color(0xFFBEBEBE)),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 5),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Text(
-            "or",
+            "또는",
             style: TextStyle(
-              fontFamily: 'Pretendard',
               fontWeight: FontWeight.w700,
-              fontSize: 15,
-              color: Color(0xFF33363F),
+              fontSize: 14,
+              color: Color(0xFF4F4F4F),
             ),
           ),
         ),
         Expanded(
-          child: Divider(
-            thickness: 0.9,
-            color: Colors.black,
-            indent: 10,
-            endIndent: 30,
-          ),
+          child: Divider(thickness: 1, color: Color(0xFFBEBEBE)),
         ),
       ],
+    );
+  }
+}
+
+class ForgotPasswordText extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(top: 5),
+      child: Row(
+        children: [
+          Text(
+            "비밀번호를 잊으셨나요? ",
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF4F4F4F),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              // 비밀번호 찾기 페이지로 이동하는 로직 추가
+            },
+            child: Text(
+              "비밀번호 재설정",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w700,
+                color: Color(0xFF4F4F4F),
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

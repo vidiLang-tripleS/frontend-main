@@ -1,88 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:vidilang/auth/login.dart';
-import 'package:vidilang/auth/signup.dart';
 import 'package:vidilang/theme.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
-      body: Stack(
+      body: Column(
         children: [
-          Positioned(
-            top: screenHeight * 0.08,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.topCenter,
+          SizedBox(height: 36),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+              padding: EdgeInsets.only(left: 90),
               child: SizedBox(
-                width: screenWidth * 0.85,
-                height: screenHeight * 0.08,
-                child: LoginHeaderLogo(),
+                width: 250.67,
+                height: 188,
+                child: Logo(),
               ),
             ),
           ),
-          Positioned(
-            top: screenHeight * 0.15,
-            left: screenWidth * 0.05,
-            right: screenWidth * 0.05,
-            child: Align(
-              alignment: Alignment.center,
-              child: Text(
-                '회원가입',
-                style: TextStyle(
-                  fontSize: screenWidth * 0.132,
-                  fontWeight: FontWeight.w700,
-                  color: AppColors.font,
-                ),
-                textAlign: TextAlign.center,
-              ),
+          SizedBox(height: 20),
+          Expanded(
+            flex: 3,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                NicknameField(),
+                SizedBox(height: 10),
+                EmailField(),
+                SizedBox(height: 5),
+                PasswordField(),
+              ],
             ),
           ),
-          Positioned(
-            top: screenHeight * 0.32,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: screenHeight * 0.045),
-                  NicknameField(),
-                  SizedBox(height: screenHeight * 0.02),
-                  EmailField(),
-                  SizedBox(height: screenHeight * 0.0002),
-                  PasswordField()
-                ],
-              ),
+          SizedBox(height: 10),
+          Accountlogin(),
+          SizedBox(height: 15),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 69),
+              child: signupButton(),
             ),
-          ),
-          Positioned(
-            bottom: screenHeight * 0.05,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(height: screenHeight * 0.009),
-                  SizedBox(height: screenHeight * 0.015),
-                  LoginButton(),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: screenHeight * 0.113,
-            left: 0,
-            right: 0,
-            child: AccountSignUpText(),
           ),
         ],
       ),
@@ -90,12 +53,288 @@ class Signup extends StatelessWidget {
   }
 }
 
-class LoginButton extends StatelessWidget {
+class NicknameField extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, bottom: 4),
+          child: Text(
+            "닉네임",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4F4F4F),
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 48,
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: Color(0xFFBEBEBE), width: 0.5),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 15, top: 13, bottom: 15),
+              border: InputBorder.none,
+              hintText: "닉네임을 입력해주세요",
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0x4F4F4F).withOpacity(0.5),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 16),
+      ],
+    );
+  }
+}
+
+class EmailField extends StatefulWidget {
+  @override
+  _EmailFieldState createState() => _EmailFieldState();
+}
+
+class _EmailFieldState extends State<EmailField> {
+  final TextEditingController _emailController = TextEditingController();
+  bool _isValidEmail = false;
+  bool _hasInputEmail = false;
+
+  void _validateEmail(String email) {
+    final emailRegex =
+        RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{3,}(?=\s*$)');
+
+    setState(() {
+      _hasInputEmail = email.isNotEmpty;
+      _isValidEmail = emailRegex.hasMatch(email);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, bottom: 4),
+          child: Text(
+            "이메일",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4F4F4F),
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 48,
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+                color: _hasInputEmail
+                    ? (_isValidEmail ? Color(0xFFA0C97D) : Color(0xFFEB5757))
+                    : Color(0xFFBEBEBE),
+                width: 0.5),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            controller: _emailController,
+            onChanged: _validateEmail,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 15, top: 13, bottom: 15),
+              border: InputBorder.none,
+              hintText: "이메일을 입력해주세요",
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0x4F4F4F).withOpacity(0.5),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 5),
+        Container(
+          height: 20,
+          padding: EdgeInsets.only(left: 34),
+          child: AnimatedOpacity(
+            duration: Duration(milliseconds: 300),
+            opacity: _hasInputEmail ? 1.0 : 0.0,
+            child: Text(
+              _isValidEmail ? "올바른 이메일 형식입니다." : "잘못된 형식의 이메일입니다.",
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: _isValidEmail ? Color(0xFFA0C97D) : Color(0xFFEB5757),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PasswordField extends StatefulWidget {
+  @override
+  _PasswordFieldState createState() => _PasswordFieldState();
+}
+
+class _PasswordFieldState extends State<PasswordField> {
+  final TextEditingController _passwordController = TextEditingController();
+  bool _hasUpperCase = false;
+  bool _hasLowerCase = false;
+  bool _hasNumber = false;
+  bool _hasSpecialChar = false;
+  bool _hasMinLength = false;
+  bool _hasInputPassword = false;
+  bool _isPasswordVisible = false;
+
+  void _validatePassword(String password) {
+    setState(() {
+      _hasInputPassword = password.isNotEmpty;
+      _hasUpperCase = RegExp(r'[A-Z]').hasMatch(password);
+      _hasLowerCase = RegExp(r'[a-z]').hasMatch(password);
+      _hasNumber = RegExp(r'[0-9]').hasMatch(password);
+      _hasSpecialChar = RegExp(r'[@$!%*?&]').hasMatch(password);
+      _hasMinLength = password.length >= 8;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    bool _allValid = _hasUpperCase &&
+        _hasLowerCase &&
+        _hasNumber &&
+        _hasSpecialChar &&
+        _hasMinLength;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, bottom: 4),
+          child: Text(
+            "비밀번호",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF4F4F4F),
+            ),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 48,
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(
+              color: !_hasInputPassword
+                  ? Color(0xFFBEBEBE)
+                  : _allValid
+                      ? Color(0xFFA0C97D)
+                      : Color(0xFFEB5757),
+              width: 0.5,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: TextField(
+            controller: _passwordController,
+            obscureText: !_isPasswordVisible,
+            onChanged: _validatePassword,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.only(left: 15, top: 13, bottom: 15),
+              border: InputBorder.none,
+              hintText: "비밀번호를 입력해주세요",
+              hintStyle: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0x4F4F4F).withOpacity(0.5),
+              ),
+              suffixIcon: IconButton(
+                icon: SvgPicture.asset(
+                  'assets/icons/eye_icon.svg',
+                  width: 20,
+                  height: 20,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isPasswordVisible = !_isPasswordVisible;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: 5),
+        AnimatedOpacity(
+          duration: Duration(milliseconds: 300),
+          opacity: _hasInputPassword ? 1.0 : 0.0,
+          child: Padding(
+            padding: EdgeInsets.only(left: 34),
+            child: RichText(
+              text: TextSpan(
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+                children: [
+                  TextSpan(
+                    text: "대문자 ",
+                    style: TextStyle(
+                        color:
+                            _hasUpperCase ? Colors.green : Color(0xFFEB5757)),
+                  ),
+                  TextSpan(text: ", "),
+                  TextSpan(
+                    text: "소문자 ",
+                    style: TextStyle(
+                        color:
+                            _hasLowerCase ? Colors.green : Color(0xFFEB5757)),
+                  ),
+                  TextSpan(text: ", "),
+                  TextSpan(
+                    text: "숫자 ",
+                    style: TextStyle(
+                        color: _hasNumber ? Colors.green : Color(0xFFEB5757)),
+                  ),
+                  TextSpan(text: ", "),
+                  TextSpan(
+                    text: "특수문자 ",
+                    style: TextStyle(
+                        color:
+                            _hasSpecialChar ? Colors.green : Color(0xFFEB5757)),
+                  ),
+                  TextSpan(text: ", "),
+                  TextSpan(
+                    text: "8자 이상 ",
+                    style: TextStyle(
+                        color:
+                            _hasMinLength ? Colors.green : Color(0xFFEB5757)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class signupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 325,
-      height: 53,
+      width: 382,
+      height: 48,
       decoration: BoxDecoration(
         color: Color(0xFFEB5757),
         borderRadius: BorderRadius.circular(10),
@@ -114,7 +353,7 @@ class LoginButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          // 로그인 버튼 클릭 시 동작할 로직 추가
+          // 회원가입 버튼 클릭 시 동작할 로직 추가
         },
         style: TextButton.styleFrom(
           padding: EdgeInsets.zero,
@@ -124,7 +363,7 @@ class LoginButton extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            "로그인",
+            "회원가입",
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,
@@ -137,246 +376,22 @@ class LoginButton extends StatelessWidget {
   }
 }
 
-class NicknameField extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "닉네임",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        SizedBox(height: 5),
-        Container(
-          width: 325,
-          height: 53,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 2),
-                blurRadius: 3,
-              ),
-            ],
-          ),
-          child: TextField(
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              hintText: "닉네임을 입력 해주세요",
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Color(0x4F4F4F).withOpacity(0.5),
-                  ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class EmailField extends StatefulWidget {
-  @override
-  _EmailFieldState createState() => _EmailFieldState();
-}
-
-class _EmailFieldState extends State<EmailField> {
-  final TextEditingController _emailController = TextEditingController();
-  bool _isValidEmail = false;
-  bool _hasInputEmail = false;
-
-  void _validateEmail(String email) {
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$');
-
-    setState(() {
-      _hasInputEmail = email.isNotEmpty;
-      _isValidEmail = emailRegex.hasMatch(email);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "이메일",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        SizedBox(height: 5),
-        Container(
-          width: 325,
-          height: 53,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 2),
-                blurRadius: 3,
-              ),
-            ],
-          ),
-          child: TextField(
-            controller: _emailController,
-            onChanged: _validateEmail,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              hintText: "이메일을 입력 해주세요",
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Color(0x4F4F4F).withOpacity(0.5),
-                  ),
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        SizedBox(
-          width: 325,
-          height: 15,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Opacity(
-              opacity: _hasInputEmail ? 1.0 : 0.0,
-              child: Text(
-                _isValidEmail ? "Valid email" : "Enter valid email",
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                  color: _isValidEmail ? Color(0xFFA0C97D) : Colors.red,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class PasswordField extends StatefulWidget {
-  @override
-  _PasswordFieldState createState() => _PasswordFieldState();
-}
-
-class _PasswordFieldState extends State<PasswordField> {
-  final TextEditingController _passwordController = TextEditingController();
-  bool _isValidPassword = false;
-  bool _hasInputPassword = false;
-  bool _isPasswordVisible = false;
-
-  void _validatePassword(String password) {
-    final passwordRegex =
-        RegExp(r'^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$');
-
-    setState(() {
-      _hasInputPassword = password.isNotEmpty;
-      _isValidPassword = passwordRegex.hasMatch(password);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "비밀번호",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
-        SizedBox(height: 5),
-        Container(
-          width: 325,
-          height: 53,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.25),
-                offset: Offset(0, 2),
-                blurRadius: 3,
-              ),
-            ],
-          ),
-          child: TextField(
-            controller: _passwordController,
-            obscureText: !_isPasswordVisible,
-            onChanged: _validatePassword,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 16),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide.none,
-              ),
-              hintText: "비밀번호를 입력 해주세요",
-              hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    color: Color(0x4F4F4F).withOpacity(0.5),
-                  ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                  _isPasswordVisible ? Icons.visibility : Icons.visibility_off,
-                  color: Colors.grey[600],
-                ),
-                onPressed: () {
-                  setState(() {
-                    _isPasswordVisible = !_isPasswordVisible;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 5),
-        SizedBox(
-          width: 325,
-          height: 15,
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Opacity(
-              opacity: _hasInputPassword ? 1.0 : 0.0,
-              child: Text(
-                _isValidPassword ? "Valid password" : "Enter valid password",
-                style: TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.w700,
-                  color: _isValidPassword ? Color(0xFFA0C97D) : Colors.red,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AccountSignUpText extends StatelessWidget {
+class Accountlogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: Padding(
-        padding: EdgeInsets.only(top: 22),
+        padding: EdgeInsets.only(top: 200),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               "이미 계정이 있으신가요? ",
               style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w700,
-                color: Colors.black.withOpacity(0.5),
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Color(0xFF4F4F4F),
               ),
             ),
             GestureDetector(
@@ -389,9 +404,9 @@ class AccountSignUpText extends StatelessWidget {
               child: Text(
                 "로그인",
                 style: TextStyle(
-                  fontSize: 10,
+                  fontSize: 12,
                   fontWeight: FontWeight.w700,
-                  color: Colors.black.withOpacity(0.7),
+                  color: Color(0xFF4F4F4F),
                   decoration: TextDecoration.underline,
                 ),
               ),

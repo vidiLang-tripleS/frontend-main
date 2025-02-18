@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
           children: [
             Background(),
             Navbar(),
-            HeaderLogo(),
             Center(
               child: TestText(),
             ),
