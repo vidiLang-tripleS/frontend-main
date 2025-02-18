@@ -160,21 +160,20 @@ class _EmailFieldState extends State<EmailField> {
         ),
         SizedBox(height: 5),
         Container(
-          height: 20,
-          padding: EdgeInsets.only(left: 30),
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 300),
-            opacity: _hasInputEmail ? 1.0 : 0.0,
-            child: Text(
-              _isValidEmail ? "올바른 이메일 형식입니다." : "잘못된 형식의 이메일입니다.",
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: _isValidEmail ? Colors.green : Color(0xFFEB5757),
+            height: 20,
+            padding: EdgeInsets.only(left: 30),
+            child: AnimatedOpacity(
+              duration: Duration(milliseconds: 300),
+              opacity: _hasInputEmail ? 1.0 : 0.0,
+              child: Text(
+                _isValidEmail ? "올바른 이메일 형식입니다." : "잘못된 형식의 이메일입니다.",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: _isValidEmail ? Colors.green : Color(0xFFEB5757),
+                ),
               ),
-            ),
-          ),
-        ),
+            )),
       ],
     );
   }
