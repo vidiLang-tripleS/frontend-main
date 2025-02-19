@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppColors {
   static const Color primary = Color(0xFFFFFFFF); // 네비바
@@ -8,6 +9,7 @@ class AppColors {
   static const Color textcolor = Color(0xFF000000); // 텍스트컬러
   static const Color lightgray = Color(0xFFC0C0C0); // 서브컬러
   static const Color black = Color(0xFF000000); // 검정
+  static const Color font = Color(0xFF4F4F4F); //텍스트
 }
 
 class Background extends StatelessWidget {
@@ -19,7 +21,21 @@ class Background extends StatelessWidget {
   }
 }
 
-class FontTheme {
+class Logo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 250.67,
+      height: 188,
+      child: Image.asset(
+        'assets/icons/image.png',
+        fit: BoxFit.contain,
+      ),
+    );
+  }
+}
+
+class font {
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Pretendard',
     textTheme: const TextTheme(

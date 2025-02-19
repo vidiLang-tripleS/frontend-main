@@ -1,33 +1,23 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
-import 'header.dart';
-import 'navbar.dart';
-import 'package:intl/date_symbol_data_local.dart'; // 날짜 데이터 초기화 패키지
+import 'package:vidilang/auth/signup.dart';
+import 'package:vidilang/navbar.dart';
+import 'package:vidilang/post/juice_list.dart';
+import 'package:vidilang/post/juice_transcription.dart';
+import 'package:vidilang/post/search_list.dart';
+import 'package:vidilang/theme.dart';
+import 'package:vidilang/auth/login.dart';
 
 void main() {
-  initializeDateFormatting(); // 날짜 데이터 초기화
-  runApp(MainPage());
+  // 날짜 데이터 초기화
+  runApp(MyApp());
 }
 
-class MainPage extends StatelessWidget {
-  const MainPage({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false, // 디버그 배너 숨기기
-      home: Scaffold(
-        body: Stack(
-          children: [
-            Background(),
-            Header(),
-            Center(
-              child: TestText(),
-            ),
-          ],
-        ),
-        bottomNavigationBar: Navbar(currentIndex: 0),
-      ),
+      home: Login(),
     );
   }
 }
