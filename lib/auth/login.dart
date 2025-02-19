@@ -36,8 +36,8 @@ class _LoginState extends State<Login> {
 
   // ✅ 로그인 로직 (임시)
   void _login() {
-    String correctEmail = "test@example.com";
-    String correctPassword = "password123";
+    String correctEmail = "";
+    String correctPassword = "";
 
     setState(() {
       _isLoginValid = _emailController.text == correctEmail &&
