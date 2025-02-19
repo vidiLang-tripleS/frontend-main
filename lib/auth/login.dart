@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/start.dart';
+import 'package:vidilang/home.dart';
 import 'package:vidilang/auth/signup.dart';
 import 'package:vidilang/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
     if (_isLoginValid) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => StartPage()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
   }

@@ -3,7 +3,7 @@ import 'theme.dart';
 import 'quiz/list_page.dart'; // ✅ QuizListPage를 불러오기
 import './folder_list_page.dart'; // ✅ FolderListPage를 불러오기
 import 'add_juice.dart'; // ✅ HomePage를 불러오기
-import 'start.dart';
+import 'home.dart';
 
 class Navbar extends StatelessWidget {
   final int currentIndex;
@@ -36,7 +36,7 @@ class Navbar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildNavItem(Icons.home_outlined, 0, context, StartPage()), // 홈
+              _buildNavItem(Icons.home_outlined, 0, context, HomePage()), // 홈
               _buildNavItem(Icons.folder_open_outlined, 1, context,
                   FolderListPage()), // 폴더
               SizedBox(width: 60), // 중앙 버튼 공간 확보
