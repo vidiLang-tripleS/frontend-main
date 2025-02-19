@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class AppColors {
   static const Color primary = Color(0xFFFFFFFF); // 네비바
   static const Color background = Color(0xFFF9F9F9); // 배경
   static const Color icon = Color(0x33363F); //아이콘
+  static const Color maincolor = Color(0xFFEB5757); // 메인컬러
+  static const Color textcolor = Color(0xFF000000); // 텍스트컬러
+  static const Color lightgray = Color(0xFFC0C0C0); // 서브컬러
+  static const Color black = Color(0xFF000000); // 검정
   static const Color font = Color(0xFF4F4F4F); //텍스트
 }
 

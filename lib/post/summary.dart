@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/theme.dart';
 
 class Summary extends StatelessWidget {
   @override

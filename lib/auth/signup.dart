@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vidilang/auth/login.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Signup extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vidilang/post/tab_list.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:vidilang/post/transcription.dart';
 import 'package:vidilang/post/summary.dart';
 import 'package:vidilang/post/memo.dart';

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/theme.dart';
-import 'package:vidilang/navbar.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:vidilang/post/SearchBox.dart';
 import 'package:vidilang/post/back_arrow.dart';
 import 'package:vidilang/post/search_list.dart';
@@ -36,7 +35,7 @@ class _PostScreenState extends State<JuiceList> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: Navbar(),
+            //child: Navbar(currentIndex: 2),
           ),
         ],
       ),

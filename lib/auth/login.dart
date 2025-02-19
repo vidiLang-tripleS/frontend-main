@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/start.dart';
+import 'package:vidilang/home.dart';
 import 'package:vidilang/auth/signup.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {
@@ -36,8 +36,8 @@ class _LoginState extends State<Login> {
 
   // ✅ 로그인 로직 (임시)
   void _login() {
-    String correctEmail = "test@example.com";
-    String correctPassword = "password123";
+    String correctEmail = "";
+    String correctPassword = "";
 
     setState(() {
       _isLoginValid = _emailController.text == correctEmail &&
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
     if (_isLoginValid) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyApp()),
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
   }
