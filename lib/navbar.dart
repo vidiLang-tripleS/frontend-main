@@ -12,7 +12,7 @@ class Navbar extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: Container(
             width: 430,
-            height: 88,
+            height: 114,
             decoration: BoxDecoration(
               color: AppColors.primary,
               border: Border.all(color: Color(0xFFEFF1F3)),
@@ -26,82 +26,79 @@ class Navbar extends StatelessWidget {
 
         // 홈 아이콘
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.0798,
-          bottom: 32.86,
+          left: 34,
+          bottom: 42.86,
           child: GestureDetector(
             onTap: () {
               // 홈 아이콘 클릭 이벤트 처리
             },
-            child: Container(
-              child: SvgPicture.asset(
-                'assets/icons/home_icon.svg',
-                width: 30,
-                height: 30,
-              ),
+            child: SvgPicture.asset(
+              'assets/icons/home_icon.svg',
+              width: 39.25,
+              height: 39.25,
             ),
           ),
         ),
 
         // 폴더 아이콘
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.2471,
-          bottom: 32.86,
+          left: 106,
+          bottom: 42.86,
           child: GestureDetector(
             onTap: () {
               // 폴더 아이콘 클릭 이벤트 처리
             },
             child: SvgPicture.asset(
               'assets/icons/folder_icon.svg',
-              width: 30,
-              height: 30,
+              width: 39.25,
+              height: 39.25,
             ),
           ),
         ),
 
         // 더하기 버튼
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.5 - 46 / 2,
-          bottom: 18.33,
+          left: 191,
+          bottom: 28.33,
           child: GestureDetector(
             onTap: () {
               // 더하기 버튼 클릭 이벤트 처리
             },
             child: SvgPicture.asset(
               'assets/icons/add_icon.svg',
-              width: 48,
-              height: 47,
+              width: 56,
+              height: 56,
             ),
           ),
         ),
 
-        // 학사모 아이콘
+        // 전구 아이콘
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.6616,
-          bottom: 32.86,
+          left: 284,
+          bottom: 42.86,
           child: GestureDetector(
             onTap: () {
-              // 학사모 아이콘 클릭 이벤트 처리
+              // 전구 아이콘 클릭 이벤트 처리
             },
             child: SvgPicture.asset(
-              'assets/icons/cap_icon.svg',
-              width: 30,
-              height: 30,
+              'assets/icons/light_icon.svg',
+              width: 39.25,
+              height: 39.25,
             ),
           ),
         ),
 
-        // 유저 아이콘
         Positioned(
-          left: MediaQuery.of(context).size.width * 0.8289,
-          bottom: 32.86,
+          left: 357,
+          bottom: 42.86,
           child: GestureDetector(
             onTap: () {
               // 유저 아이콘 클릭 이벤트 처리
             },
             child: SvgPicture.asset(
               'assets/icons/user_icon.svg',
-              width: 30,
-              height: 30,
+              width: 39.25,
+              height: 39.25,
             ),
           ),
         ),

@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
-import 'theme.dart';
-import 'navbar.dart';
+import 'package:vidilang/auth/signup.dart';
+import 'package:vidilang/navbar.dart';
+import 'package:vidilang/post/juice_list.dart';
+import 'package:vidilang/post/juice_transcription.dart';
+import 'package:vidilang/post/search_list.dart';
+import 'package:vidilang/theme.dart';
+import 'package:vidilang/auth/login.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class VidiLang extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // 디버그 배너 숨기기
-      home: Scaffold(
-        body: Stack(
-          children: [
-            Background(),
-            Navbar(),
-            HeaderLogo(),
-            Center(
-              child: TestText(),
-            ),
-          ],
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      theme: font.lightTheme,
+      home: Login(),
     );
   }
 }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AppColors {
   static const Color primary = Color(0xFFFFFFFF); // 네비바
-  static const Color background = Color(0xFFF7E6E6); // 배경
+  static const Color background = Color(0xFFF9F9F9); // 배경
   static const Color icon = Color(0x33363F); //아이콘
+  static const Color font = Color(0xFF4F4F4F); //텍스트
 }
 
 class Background extends StatelessWidget {
@@ -15,21 +17,15 @@ class Background extends StatelessWidget {
   }
 }
 
-class HeaderLogo extends StatelessWidget {
+class Logo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
-
-    return Positioned(
-      left: 9,
-      top: statusBarHeight + 10,
-      child: SizedBox(
-        width: 150,
-        height: 35,
-        child: Image.asset(
-          'assets/icons/logo.png',
-          fit: BoxFit.contain,
-        ),
+    return SizedBox(
+      width: 250.67,
+      height: 188,
+      child: Image.asset(
+        'assets/icons/image.png',
+        fit: BoxFit.contain,
       ),
     );
   }
