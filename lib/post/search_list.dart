@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vidilang/post/juice_transcription.dart';
-import 'package:vidilang/post/juice_transcription.dart';
 
 class SearchList extends StatelessWidget {
   // 검색 결과 리스트 (예시 데이터)

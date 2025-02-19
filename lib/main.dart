@@ -1,10 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/auth/signup.dart';
-import 'package:vidilang/navbar.dart';
-import 'package:vidilang/post/juice_list.dart';
-import 'package:vidilang/post/juice_transcription.dart';
-import 'package:vidilang/post/search_list.dart';
-import 'package:vidilang/theme.dart';
 import 'package:vidilang/auth/login.dart';
 
 void main() {

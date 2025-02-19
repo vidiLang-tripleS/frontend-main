@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
     if (_isLoginValid) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => MyApp()),
+        MaterialPageRoute(builder: (context) => StartPage()),
       );
     }
   }

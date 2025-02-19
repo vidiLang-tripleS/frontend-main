@@ -3,7 +3,7 @@ import 'theme.dart';
 import 'header.dart';
 import 'navbar.dart';
 
-class MyApp extends StatelessWidget {
+class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
