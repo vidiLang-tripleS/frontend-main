@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'result.dart';
-import '../theme.dart';
+import '../common/theme.dart';
 import '../quiz/list_page.dart';
 
 class QuizSolve extends StatefulWidget {

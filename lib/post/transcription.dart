@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 
 class Transcription extends StatelessWidget {
   @override

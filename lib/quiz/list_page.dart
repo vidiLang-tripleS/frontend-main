@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../navbar.dart';
-import '../theme.dart';
+import '../common/navbar.dart';
+import '../common/theme.dart';
 import './solve.dart';
 
 class QuizListPage extends StatefulWidget {

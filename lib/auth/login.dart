@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vidilang/home.dart';
 import 'package:vidilang/auth/signup.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Login extends StatefulWidget {

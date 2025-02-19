@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vidilang/auth/login.dart';
 
 void main() {
-  // 날짜 데이터 초기화
   runApp(MyApp());
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'theme.dart';
-import 'quiz/list_page.dart'; // ✅ QuizListPage를 불러오기
-import './folder_list_page.dart'; // ✅ FolderListPage를 불러오기
-import 'add_juice.dart'; // ✅ HomePage를 불러오기
-import 'home.dart';
+import '../home.dart';
+import '../folder_list_page.dart';
+import '../add_juice.dart';
+import '../quiz/list_page.dart';
 
 class Navbar extends StatelessWidget {
   final int currentIndex;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vidilang/theme.dart';
+import 'package:vidilang/common/theme.dart';
 import 'package:vidilang/post/SearchBox.dart';
 import 'package:vidilang/post/back_arrow.dart';
 import 'package:vidilang/post/search_list.dart';

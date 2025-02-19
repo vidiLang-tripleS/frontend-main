@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'solve.dart'; // 퀴즈 풀이 페이지 import
+import 'solve.dart';
 
 class QuizResultPage extends StatelessWidget {
   final int correctAnswers;

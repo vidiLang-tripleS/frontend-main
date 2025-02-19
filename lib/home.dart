@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'navbar.dart';
+import 'common/navbar.dart';
 
 class HomePage extends StatelessWidget {
   @override
