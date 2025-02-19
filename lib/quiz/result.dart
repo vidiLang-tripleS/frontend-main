@@ -94,7 +94,7 @@ class QuizResultPage extends StatelessWidget {
                     child: IconButton(
                       icon: Icon(Icons.refresh),
                       onPressed: () {
-                        // 🚀 전체 문제 다시 풀기 기능 추가
+                        // 전체 문제 다시 풀기 기능
                         Navigator.popUntil(context, (route) => route.isFirst);
                         Navigator.pushReplacement(
                           context,
