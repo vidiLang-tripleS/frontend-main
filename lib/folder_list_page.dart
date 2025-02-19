@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'navbar.dart';
 import 'theme.dart';
+import 'post/juice_list.dart';
 
 class FolderListPage extends StatelessWidget {
   const FolderListPage({Key? key}) : super(key: key);
@@ -44,21 +45,25 @@ class FolderListPage extends StatelessWidget {
           childAspectRatio: 1.6,
           children: [
             _buildFolderCard(
+              context: context,
               title: '영어',
               subtitle: '#English',
               color: AppColors.maincolor,
             ),
             _buildFolderCard(
+              context: context,
               title: '스페인어',
               subtitle: '#Spanish',
               color: const Color(0xFFF2994A),
             ),
             _buildFolderCard(
+              context: context,
               title: '일본어',
               subtitle: '#Japanese',
               color: const Color(0xFFFDB022),
             ),
             _buildFolderCard(
+              context: context,
               title: '기본',
               subtitle: '#Uncategorized',
               color: const Color(0xFF808080),
@@ -71,59 +76,68 @@ class FolderListPage extends StatelessWidget {
   }
 
   Widget _buildFolderCard({
+    required BuildContext context,
     required String title,
     required String subtitle,
     required Color color,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Stack(
-        children: [
-          // 오른쪽 상단 점 3개 아이콘
-          Positioned(
-            right: 8,
-            top: 8,
-            child: IconButton(
-              onPressed: () {
-                // TODO: 편집/삭제 메뉴
-              },
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => JuiceList()),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          children: [
+            // 오른쪽 상단 점 3개 아이콘
+            Positioned(
+              right: 8,
+              top: 8,
+              child: IconButton(
+                onPressed: () {
+                  // TODO: 편집/삭제 메뉴
+                },
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          // 폴더 정보 (제목, 해시태그)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
+            // 폴더 정보 (제목, 해시태그)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  subtitle,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
+                  const SizedBox(height: 4),
+                  Text(
+                    subtitle,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
