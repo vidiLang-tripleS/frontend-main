@@ -9,6 +9,7 @@ class FolderListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Padding(
           padding: const EdgeInsets.only(left: 8.0), // 원하는 만큼 padding 조절

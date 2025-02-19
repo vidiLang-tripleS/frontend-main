@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'common/navbar.dart';
+import 'common/theme.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -7,6 +8,7 @@ class HomePage extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [],
         ),
